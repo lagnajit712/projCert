@@ -1,0 +1,43 @@
+Job 1 Slave
+
+
+#!/bin/bash
+wget https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb
+dpkg -i puppetlabs-release-pc1-xenial.deb
+apt-get update
+apt-get install puppet-agent
+systemctl start puppet
+systemctl enable puppet
+
+
+Job 2 Slave
+
+sudo /opt/puppetlabs/bin/puppet cert sign -a
+
+Job 3 Slave
+
+sudo /opt/puppetlabs/bin/puppet agent -t
+
+Job 4 Slave
+
+docker build -t lagnajit712/edurekaproject:educertv0.1 .
+IMAGE_ID=$(sudo docker images --filter=reference=lagnajit712/edurekaproject --format "{{.ID}}")
+echo $IMAGE_ID
+docker run -p 8000:80 --name edurekaCertProject -itd $IMAGE_ID
+
+Post build:-
+sudo docker rm -f $(docker ps -a -q)
+IMAGE_ID=$(sudo docker images --filter=reference=lagnajit712/edurekaproject --format "{{.ID}}")
+echo $IMAGE_ID
+docker rmi -f $IMAGE_ID
+
+Job 5 Slave
+
+java -jar seleniumtest4.jar
+echo "BUILD SUCCESS"
+
+Post BUILD
+sudo docker rm -f $(docker ps -a -q)
+IMAGE_ID=$(sudo docker images --filter=reference=lagnajit712/edurekaproject --format "{{.ID}}")
+echo $IMAGE_ID
+docker rmi -f $IMAGE_ID
