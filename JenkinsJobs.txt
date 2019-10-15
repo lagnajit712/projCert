@@ -10,7 +10,7 @@ systemctl start puppet
 systemctl enable puppet
 
 
-Job 2 Slave
+Job 2 Master
 
 sudo /opt/puppetlabs/bin/puppet cert sign -a
 
