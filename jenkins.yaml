@@ -1,0 +1,148 @@
+jenkins:
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: false
+  disableRememberMe: false
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  nodes:
+  - permanent:
+      launcher:
+        jnlp:
+          workDirSettings:
+            disabled: false
+            failIfWorkDirIsMissing: false
+            internalDir: "remoting"
+      name: "slave"
+      nodeProperties:
+      - toolLocation:
+          locations:
+          - home: "/usr/bin/git"
+            key: "hudson.plugins.git.GitTool$DescriptorImpl@Default"
+          - home: "/usr/lib/jvm/java-8-openjdk-amd64/"
+            key: "hudson.model.JDK$DescriptorImpl@JDK8"
+          - home: "/usr/share/maven"
+            key: "hudson.tasks.Maven$MavenInstallation$DescriptorImpl@Maven"
+      numExecutors: 1
+      remoteFS: "/home/edureka/slave_jenkins"
+      retentionStrategy: "always"
+  numExecutors: 2
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: true
+  scmCheckoutRetryCount: 0
+  securityRealm:
+    local:
+      allowsSignup: false
+      enableCaptcha: false
+      users:
+      - id: "edureka"
+  slaveAgentPort: 0
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins.io/update-center.json"
+  views:
+  - buildPipeline:
+      alwaysAllowManualTrigger: false
+      buildCard: "standardBuildCard"
+      columnHeaders: "nullColumnHeader"
+      gridBuilder:
+        downstream:
+          firstJob: "Job1"
+      name: "EdurekaProject"
+      noOfDisplayedBuilds: "1"
+      refreshFrequency: 3
+      rowHeaders: "simpleRowHeader"
+      showPipelineDefinitionHeader: false
+      showPipelineParameters: false
+      showPipelineParametersInHeaders: false
+      triggerOnlyLatestJob: false
+  - buildPipeline:
+      alwaysAllowManualTrigger: false
+      buildCard: "standardBuildCard"
+      buildViewTitle: "SeleniumPipe"
+      columnHeaders: "nullColumnHeader"
+      gridBuilder:
+        downstream:
+          firstJob: "SeleniumJob1"
+      name: "SeleniumTest"
+      noOfDisplayedBuilds: "1"
+      refreshFrequency: 3
+      rowHeaders: "simpleRowHeader"
+      showPipelineDefinitionHeader: false
+      showPipelineParameters: false
+      showPipelineParametersInHeaders: false
+      triggerOnlyLatestJob: false
+  - all:
+      name: "all"
+  viewsTabBar: "standard"
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  downloadSettings:
+    useBrowser: false
+  sSHD:
+    port: -1
+unclassified:
+  buildStepOperation:
+    enabled: false
+  extendedEmailPublisher:
+    adminRequiredForTemplateTesting: false
+    allowUnregisteredEnabled: false
+    charset: "UTF-8"
+    debugMode: false
+    defaultBody: |-
+      $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+
+      Check console output at $BUILD_URL to view the results.
+    defaultSubject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!"
+    maxAttachmentSize: -1
+    maxAttachmentSizeMb: 0
+    precedenceBulk: false
+    useSsl: false
+    watchingEnabled: false
+  gitHubPluginConfig:
+    hookUrl: "http://localhost:8080/github-webhook/"
+  gitSCM:
+    createAccountBasedOnEmail: false
+  location:
+    adminAddress: "address not configured yet <nobody@nowhere>"
+    url: "http://localhost:8080/"
+  mailer:
+    adminAddress: "address not configured yet <nobody@nowhere>"
+    charset: "UTF-8"
+    useSsl: false
+  mavenModuleSet:
+    localRepository: "default"
+  pollSCM:
+    pollingThreadCount: 10
+  timestamperConfig:
+    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
+    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
+tool:
+  git:
+    installations:
+    - home: "/usr/bin/git"
+      name: "Default"
+  jdk:
+    installations:
+    - home: "/usr/lib/jvm/java-8-openjdk-amd64/"
+      name: "JDK8"
+  maven:
+    installations:
+    - home: "/usr/share/mvn"
+      name: "Maven"
